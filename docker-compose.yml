@@ -1,0 +1,63 @@
+version: '3'
+
+services:
+  zabbix-web-server:
+    image: zabbix/zabbix-web-nginx-mysql:ubuntu-latest
+    links:
+      - db
+      - zabbix-server
+      - mailserver
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DB_SERVER_HOST: db
+      ZBX_SERVER_HOST: zabbix-server
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin
+    depends_on:
+      - db
+      - zabbix-server
+
+  zabbix-agent:
+    image: zabbix/zabbix-agent:ubuntu-latest
+    links:
+      - zabbix-proxy
+    environment:
+      ZBX_SERVER_HOST: zabbix-proxy
+    depends_on:
+      - zabbix-proxy
+
+  zabbix-proxy:
+    image: zabbix/zabbix-proxy-sqlite3:ubuntu-latest
+    links:
+      - zabbix-server
+    environment:
+      ZBX_SERVER_HOST: zabbix-server
+      ZBX_HOSTNAME: zabbix-proxy
+    depends_on:
+      - zabbix-server
+
+  zabbix-server:
+    image: zabbix/zabbix-server-mysql:ubuntu-latest
+    links:
+      - db
+      - mailserver
+    environment:
+      DB_SERVER_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASSWORD: admin
+    depends_on:
+      - db
+
+  mailserver:
+    image: mailhog/mailhog:latest
+    ports:
+      - "8025:8025"
+
+  db:
+    image: mariadb:latest
+    environment:
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+      MYSQL_ROOT_PASSWORD: admin
