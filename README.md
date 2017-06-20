@@ -1,21 +1,24 @@
 # Docker Zabbix Laboratory
  Creating a basic environment to test Zabbix monitoring. Zabbix is enterprise open source monitoring software for networks and applications, created by Alexei Vladishev. (from https://en.wikipedia.org/wiki/Zabbix)
- 
+
+***Tested on docker 17.03.1-ce and docker-compose 1.14.0***
+
 ## Using docker compose
  Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a Compose file to configure your application’s services. Then, using a single command, you create and start all the services from your configuration. (from https://docs.docker.com/compose/overview)
 
-To create and start containers:
+To start this lab, clone the repository:
+
+```shell
+git clone https://github.com/ericogr/docker-zabbix-lab.git
+cd docker-zabbix-lab
+```
+
+Create and start containers:
+
 ```shell
 docker-compose up
 ```
-
-To stop and remove containers:
-```shell
-docker-compose down
-```
-More information: https://docs.docker.com/compose/reference/overview/
-
-using <code>docker-compose up</code>:
+after some time in console:
 
 ```shell
 ... (other things...)
@@ -25,7 +28,13 @@ using <code>docker-compose up</code>:
 ** Preparing Zabbix server configuration file
 ```
 
->This process can take fill minutes go get ready
+>This process can take fill minutes go get ready. After some time, you can open http://localhost to access zabbix web interface
+
+To stop and remove containers:
+```shell
+docker-compose down
+```
+More information about docker compose: https://docs.docker.com/compose/reference/overview/
 
 # Zabbix lab architecture
 
@@ -33,6 +42,8 @@ using <code>docker-compose up</code>:
 * zabbix proxy
 * zabbix server
 * zabbix web server
+* mailhog
+* mariadb
 
 ![Image of zabbix architecture](https://raw.githubusercontent.com/ericogr/docker-zabbix-lab/master/zabbix_architecture.png "Image of zabbix architecture")
 
@@ -85,7 +96,7 @@ http://localhost:8025
 
 ## Add zabbix proxy server
  1. Access web interface: http://localhost
- 2. Login (username/password): Admin/zabbix
+ 2. Login if you are not logged (username/password): Admin/zabbix
  3. Click Administration/Proxies
  4. Click "Create Proxy" button
  5. Fill Proxy name with "zabbix-proxy"
@@ -93,13 +104,13 @@ http://localhost:8025
 
 ## Configure e-mail server
  1. Access web interface: http://localhost
- 2. Login (username/password): Admin/zabbix
+ 2. Login if you are not logged (username/password): Admin/zabbix
  3. Click Administration/Media types
  4. Click Email to edit current e-mail settings
  5. Fill SMTP server with "mailserver" and SMTP server port with "1025"
  6. Do not touch other parameters and click Update
 
-## Issues
+# Issues
 
 After starting docker compose with command <code>docker-compose up</code>, at certain point, you get this message:
 
