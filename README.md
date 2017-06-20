@@ -4,10 +4,18 @@
 ## Using docker compose
  Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a Compose file to configure your application’s services. Then, using a single command, you create and start all the services from your configuration. (from https://docs.docker.com/compose/overview)
 
-To start: docker-compose up
-To remove: docker-compose down
+To create and start containers:
+```shell
+docker-compose up
+```
 
-When you get this message:
+To stop and remove containers:
+```shell
+docker-compose down
+```
+More information: https://docs.docker.com/compose/reference/overview/
+
+using <code>docker-compose up</code>:
 
 ```shell
 ... (other things...)
@@ -90,3 +98,16 @@ http://localhost:8025
  4. Click Email to edit current e-mail settings
  5. Fill SMTP server with "mailserver" and SMTP server port with "1025"
  6. Do not touch other parameters and click Update
+
+## Issues
+
+After starting docker compose with command <code>docker-compose up</code>, at certain point, you get this message:
+
+``` shell
+zabbix-server_1      |    166:20170620:133814.609 cannot parse autoregistration data from active proxy at "172.19.0.6": proxy "zabbix-proxy" not found
+zabbix-proxy_1       |    106:20170620:133814.609 cannot send history data to server at "zabbix-server": proxy "zabbix-proxy" not found
+zabbix-server_1      |    170:20170620:133815.612 cannot parse autoregistration data from active proxy at "172.19.0.6": proxy "zabbix-proxy" not found
+zabbix-proxy_1       |    106:20170620:133815.612 cannot send history data to server at "zabbix-server": proxy "zabbix-proxy" not found
+```
+
+***You need to add zabbix-proxy configuration using zabbix web server.***
