@@ -6,60 +6,69 @@ To remove: docker-compose down
 
 When you get this message:
 
-` sh
+```shell
+... (other things...)
 ** Database 'zabbix' does not exist. Creating...
 ** Creating 'zabbix' schema in MySQL
 ** Fill the schema with initial data
 ** Preparing Zabbix server configuration file
-`
+```
 
-This process can take a fill minutes go get ready
+>This process can take fill minutes go get ready
 
 # Zabbix lab architecture
 
--zabbix agent
--zabbix proxy
--zabbix server
--zabbix web server
+* zabbix agent
+* zabbix proxy
+* zabbix server
+* zabbix web server
 
-![Image of zabbix architecture](https://raw.githubusercontent.com/ericogr/docker-zabbix-lab/master/docs/zabbix_architecture.png "Image of zabbix architecture")
-
-# Docker machines information
+![Image of zabbix architecture](https://raw.githubusercontent.com/ericogr/docker-zabbix-lab/master/zabbix_architecture.png "Image of zabbix architecture")
 
 ## Zabbix web interface
 
  http://localhost
 
- username: Admin
- password: zabbix
- hostname: zabbix-web-server
+``` html
+username: Admin
+password: zabbix
+hostname: zabbix-web-server
+```
 
-## Email interface
+## E-mail interface
 
 http://localhost:8025
 
  MailHog is an email testing tool for developers.
- -Configure your application to use MailHog for SMTP delivery
- -View messages in the web UI, or retrieve them with the JSON API
- -Optionally release messages to real SMTP servers for delivery
+ * Configure your application to use MailHog for SMTP delivery
+ * View messages in the web UI, or retrieve them with the JSON API
+ * Optionally release messages to real SMTP servers for delivery
 
 ## Zabbix proxy server
 
+``` html
   hostname: zabbix-proxy
+```
 
 ## Zabbix server
 
+``` html
   hostname: zabbix-proxy
+```
 
 ## Zabbix agent
 
+``` html
   hostname: zabbix-agent
+```
 
 ## MariaDB
 
+``` html
   hostname: db
   username: root
   password: admin
+```
 
 # Initial configuration
 
