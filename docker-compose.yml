@@ -11,8 +11,8 @@ services:
       - "80:80"
       - "443:443"
     environment:
-      DB_SERVER_HOST: db
       ZBX_SERVER_HOST: zabbix-server
+      DB_SERVER_HOST: db
       MYSQL_USER: root
       MYSQL_PASSWORD: admin
     depends_on:
@@ -24,6 +24,7 @@ services:
     links:
       - zabbix-proxy
     environment:
+      ZBX_HOSTNAME: zabbix-agent
       ZBX_SERVER_HOST: zabbix-proxy
     depends_on:
       - zabbix-proxy
@@ -33,8 +34,10 @@ services:
     links:
       - zabbix-server
     environment:
-      ZBX_SERVER_HOST: zabbix-server
       ZBX_HOSTNAME: zabbix-proxy
+      ZBX_SERVER_HOST: zabbix-server
+      ZBX_CONFIGFREQUENCY: 10
+      ZBX_PROXYHEARTBEATFREQUENCY: 5
     depends_on:
       - zabbix-server
 
