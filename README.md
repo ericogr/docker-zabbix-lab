@@ -4,6 +4,7 @@
 ## Attention
  * Tested with docker 17.03.1-ce and compose 1.14.0
  * Not designed to production environment!
+ * Tcp ports 80 and 8025 are used to web interfaces (zabbix web and mailhog)
 
 ## Using docker compose
  Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a Compose file to configure your application’s services. Then, using a single command, you create and start all the services from your configuration. (from https://docs.docker.com/compose/overview)
