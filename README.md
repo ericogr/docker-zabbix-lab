@@ -49,15 +49,19 @@ More information about docker compose: https://docs.docker.com/compose/reference
 
 ## Zabbix web interface
 
- http://localhost
-
 ``` html
-username: Admin
-password: zabbix
-hostname: zabbix-web-server
+  hostname: zabbix-web-server
+  username: Admin
+  password: zabbix
 ```
 
+ http://localhost
+
 ## E-mail interface
+
+``` html
+  hostname: mailserver
+```
 
 http://localhost:8025
 
@@ -67,6 +71,8 @@ http://localhost:8025
  * Optionally release messages to real SMTP servers for delivery
 
 ## Zabbix proxy server
+
+In active mode, uses sqlite database.
 
 ``` html
   hostname: zabbix-proxy
@@ -112,10 +118,18 @@ http://localhost:8025
 
 # Issues
 
-After starting docker compose with command <code>docker-compose up</code>, at certain point, you get this message:
+* After starting docker compose with command <code>docker-compose up</code>, at certain point, you get a message like this:
 
 ``` shell
-zabbix-server_1      |    142:20170621:001640.841 cannot parse heartbeat from active proxy at "172.18.0.6": proxy "zabbix-proxy" not found
+zabbix-proxy_1       |    110:20170621:094052.680 Unable to connect to the server [zabbix-server]:10051 [cannot connect to [[zabbix-server]:10051]: [111] Connection refused]
+```
+
+***You need to wait zabbix server finish start***
+
+* Some time after starting docker compose with command <code>docker-compose up</code>, at certain point, you get a message like this:
+
+``` shell
+zabbix-server_1      |    142:20170621:001640.841 cannot parse heartbeat from active proxy at "XXX.XXX.XXX.XXX": proxy "zabbix-proxy" not found
 zabbix-proxy_1       |    109:20170621:001640.841 cannot send heartbeat message to server at "zabbix-server": proxy "zabbix-proxy" not found
 ```
 
