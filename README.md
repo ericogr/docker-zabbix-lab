@@ -32,7 +32,7 @@ after some time in console:
 ** Preparing Zabbix server configuration file
 ```
 
->This process can take fill minutes go get ready. After some time, you can open http://localhost to access zabbix web interface
+>This process can take fill minutes to get ready. After some time, you can open http://localhost to access zabbix web interface
 
 To stop and remove containers:
 ```shell
