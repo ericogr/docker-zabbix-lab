@@ -115,10 +115,8 @@ http://localhost:8025
 After starting docker compose with command <code>docker-compose up</code>, at certain point, you get this message:
 
 ``` shell
-zabbix-server_1      |    166:20170620:133814.609 cannot parse autoregistration data from active proxy at "172.19.0.6": proxy "zabbix-proxy" not found
-zabbix-proxy_1       |    106:20170620:133814.609 cannot send history data to server at "zabbix-server": proxy "zabbix-proxy" not found
-zabbix-server_1      |    170:20170620:133815.612 cannot parse autoregistration data from active proxy at "172.19.0.6": proxy "zabbix-proxy" not found
-zabbix-proxy_1       |    106:20170620:133815.612 cannot send history data to server at "zabbix-server": proxy "zabbix-proxy" not found
+zabbix-server_1      |    142:20170621:001640.841 cannot parse heartbeat from active proxy at "172.18.0.6": proxy "zabbix-proxy" not found
+zabbix-proxy_1       |    109:20170621:001640.841 cannot send heartbeat message to server at "zabbix-server": proxy "zabbix-proxy" not found
 ```
 
 ***You need to add zabbix-proxy configuration using zabbix web server.***
