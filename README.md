@@ -1,10 +1,15 @@
 # Docker Zabbix Laboratory
  Creating a basic environment to test Zabbix monitoring. Zabbix is enterprise open source monitoring software for networks and applications, created by Alexei Vladishev. (from https://en.wikipedia.org/wiki/Zabbix)
 
-***Tested on docker 17.03.1-ce and docker-compose 1.14.0***
+## Attention
+ * Tested with docker 17.03.1-ce and compose 1.14.0
+ * Not designed to production environment!
+ * Tcp ports 80 and 8025 are used to web interfaces (zabbix web and mailhog)
 
 ## Using docker compose
  Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a Compose file to configure your application’s services. Then, using a single command, you create and start all the services from your configuration. (from https://docs.docker.com/compose/overview)
+
+## Start
 
 To start this lab, clone the repository:
 
@@ -28,13 +33,31 @@ after some time in console:
 ** Preparing Zabbix server configuration file
 ```
 
->This process can take fill minutes go get ready. After some time, you can open http://localhost to access zabbix web interface
+>This process can take fill minutes to get ready. After some time, you can open http://localhost to access zabbix web interface
 
 To stop and remove containers:
 ```shell
 docker-compose down
 ```
 More information about docker compose: https://docs.docker.com/compose/reference/overview/
+
+# Initial configuration
+
+## Add zabbix proxy server
+ 1. Access web interface: http://localhost
+ 2. Login if you are not logged (username/password): Admin/zabbix
+ 3. Click Administration/Proxies
+ 4. Click "Create Proxy" button
+ 5. Fill Proxy name with "zabbix-proxy"
+ 6. Click Add
+
+## Configure e-mail server
+ 1. Access web interface: http://localhost
+ 2. Login if you are not logged (username/password): Admin/zabbix
+ 3. Click Administration/Media types
+ 4. Click Email to edit current e-mail settings
+ 5. Fill SMTP server with "mailserver" and SMTP server port with "1025"
+ 6. Do not touch other parameters and click Update
 
 # Zabbix lab architecture
 
@@ -49,7 +72,7 @@ More information about docker compose: https://docs.docker.com/compose/reference
 
 ## Zabbix web interface
 
-http://localhost
+web interface: http://localhost
 
 ``` html
   hostname: zabbix-web-server
@@ -57,9 +80,9 @@ http://localhost
   password: zabbix
 ```
 
- ## E-mail interface
+## E-mail interface
 
-http://localhost:8025
+web interface: http://localhost:8025
 
 ``` html
   hostname: mailserver
