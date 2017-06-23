@@ -49,21 +49,21 @@ More information about docker compose: https://docs.docker.com/compose/reference
 
 ## Zabbix web interface
 
+http://localhost
+
 ``` html
   hostname: zabbix-web-server
   username: Admin
   password: zabbix
 ```
 
- http://localhost
+ ## E-mail interface
 
-## E-mail interface
+http://localhost:8025
 
 ``` html
   hostname: mailserver
 ```
-
-http://localhost:8025
 
  MailHog is an email testing tool for developers.
  * Configure your application to use MailHog for SMTP delivery
@@ -116,12 +116,48 @@ In active mode, uses sqlite database.
  5. Fill SMTP server with "mailserver" and SMTP server port with "1025"
  6. Do not touch other parameters and click Update
 
+# Parameters
+
+Parameters are defined in <code>.env</code> file:
+
+```shell
+#database
+MYSQL_ROOT_PASSWORD=zabbix
+
+#zabbix-web
+PHP_TZ=America/Sao_Paulo
+
+#common
+ZBX_DEBUGLEVEL=3
+ZBX_TIMEOUT=4
+ZBX_UNAVAILABLEDELAY=60
+ZBX_UNREACHABLEDELAY=15
+
+#zabbix-proxy
+ZBX_CONFIGFREQUENCY=10
+ZBX_PROXYHEARTBEATFREQUENCY=5
+
+#zabbix-server
+ZBX_SENDERFREQUENCY=30
+ZBX_CACHEUPDATEFREQUENCY=20
+ZBX_TRAPPERIMEOUT=300
+ZBX_UNREACHABLEPERIOD=45
+ZBX_PROXYCONFIGFREQUENCY=10
+ZBX_PROXYDATAFREQUENCY=1
+
+#zabbix-agent
+ZBX_ENABLEREMOTECOMMANDS=0
+ZBX_LOGREMOTECOMMANDS=0
+ZBX_REFRESHACTIVECHECKS=120
+```
+
 # Issues
 
 * After starting docker compose with command <code>docker-compose up</code>, at certain point, you get a message like this:
 
 ``` shell
-zabbix-proxy_1       |    110:20170621:094052.680 Unable to connect to the server [zabbix-server]:10051 [cannot connect to [[zabbix-server]:10051]: [111] Connection refused]
+zabbix-server_1      |    172:20170623:161156.544 cannot parse autoregistration data from active proxy at "172.19.0.6": proxy "zabbix-proxy" not found
+zabbix-proxy_1       |    116:20170623:161156.544 cannot send history data to server at "zabbix-server": proxy "zabbix-proxy" not found
 ```
 
 ***You need to wait zabbix server finish start***
@@ -134,3 +170,7 @@ zabbix-proxy_1       |    109:20170621:001640.841 cannot send heartbeat message 
 ```
 
 ***You need to add zabbix-proxy configuration using zabbix web server.***
+
+* Incorrect time events
+
+***You need to specify
